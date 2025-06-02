@@ -1,4 +1,4 @@
-import { useParams, useNavigate, redirect } from "react-router";
+import { useParams, useNavigate, redirect } from "react-router-dom";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "../http-commons";
@@ -40,9 +40,37 @@ function RecipeDetail() {
     console.log('data: ', data);
 
     return (
+        data.vo &&
         <div className={"container"}>
             <div className={"row"}>
-                <h1 className={"text-center"}>{no}</h1>
+                <table className={"table"}>
+                    <tr>
+                        <td className={"text-center"} colSpan={"3"}>
+                            <img src={data.vo.poster} alt="" style={{ width: "800px", height: "400px" }} />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className={"text-center"} colSpan={"3"}>
+                            <h3>{data.vo.title}</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className={"text-center"}>
+                            <img src={"/icon/a1.png"} alt=""/>
+                        </td>
+                        <td className={"text-center"}>
+                            <img src={"/icon/a2.png"} alt=""/>
+                        </td>
+                        <td className={"text-center"}>
+                            <img src={"/icon/a3.png"} alt=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className={"text-center"}>{data.vo.info1}</td>
+                        <td className={"text-center"}>{data.vo.info2}</td>
+                        <td className={"text-center"}>{data.vo.info3}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     )
