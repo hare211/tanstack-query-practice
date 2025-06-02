@@ -45,18 +45,29 @@ function RecipeList() {
     let startPage = data.startPage;
     let endPage = data.endPage;
     let pageArr = [];
+
+    const prev = () => {
+        setCurPage(startPage - 1);
+    }
+    const next = () => {
+        setCurPage(endPage + 1);
+    }
+    const pageChange = (e) => {
+        setCurPage(e);
+    }
+
     if (startPage > 1) {
-        pageArr.push(<li><a href={"#"}>&lt;</a></li>);
+        pageArr.push(<li><a className={"nav-link"} onClick={prev}>&lt;</a></li>);
     }
     for (let i = startPage; i <= endPage; i++) {
         if (i === curPage) {
-            pageArr.push(<li className={"active"} key={i}><a href={"#"}>{i}</a></li>)
+            pageArr.push(<li className={"active"} key={i}><a className={"nav-link"} onClick={(e) => {e.preventDefault(); pageChange(i)}}>{i}</a></li>)
         } else {
-            pageArr.push(<li key={i}><a href={"#"}>{i}</a></li>)
+            pageArr.push(<li key={i}><a className={"nav-link"} onClick={(e) => {e.preventDefault(); pageChange(i)}}>{i}</a></li>)
         }
     }
     if (endPage < totalPage) {
-        pageArr.push(<li><a href={"#"}>&gt;</a></li>);
+        pageArr.push(<li><a className={"nav-link"} onClick={next}>&gt;</a></li>);
     }
 
     return (
@@ -67,12 +78,12 @@ function RecipeList() {
                         data.fList && data.fList.map((recipe, index) =>
                             <div className="col-md-3" key={index}>
                                 <div className="thumbnail">
-                                    <a href="#">
+                                    <Link to={"/recipe/detail/" + recipe.no}>
                                         <img src={recipe.poster} alt="Lights" style={{ width: "230px", height: "130px" }} />
                                         <div className="caption">
                                             <p>{recipe.title}</p>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         )
